@@ -108,3 +108,28 @@ button:hover {
     background-color: orange;
 }
 
+#login-container {
+    background: #111;
+    color: gold;
+    padding: 30px;
+    width: 300px;
+    height: 200px;
+    border: 2px solid gold;
+    border-radius: 10px;
+}
+
+#login-container input {
+    padding: 8px;
+    margin-top: 10px;
+    width: 90%;
+}
+
+#login-container button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    background: gold;
+    border: none;
+    cursor: pointer;
+}
+

@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"> 
-        <title> Poker Table </title>
-        <link rel="stylesheet" href="assets/css/style.css">
-    </head>
-    <body>
-        <div class="game-container">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Poker Table </title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="login-container">
+        <h2> Enter your name to start the game </h2>
+        <input type="text" id="username" placeholder="Enter username"><br>
+        <button id="loginBtn">Login</button>
+    </div>
+
+    <div class="game-container">
         <h1>
             <img src="assets/images/poker-table.png" style="width:50px; vertical-align:middle;">
             Poker Table Game
         </h1>
+    
 
         <div class="table">
             <div id="player-cards" class="card-container">Your cards will appear here </div>
             <button id="dealBtn"> Deal Cards </button>
         </div>
+    </div>
+    <script src="assets/js/script.js"></script>
+</body>
 
-        </div>
-     <script src="assets/js/script.js"></script>
-    </body> 
 </html>
