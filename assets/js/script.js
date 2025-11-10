@@ -24,7 +24,7 @@ document.getElementById("dealBtn").addEventListener("click", () => {
       alert(data.message);
       }
   })
-  .catch(err => console.error(err));
+  .catch(err => console.error(err)); 
     
   fetch("backend/php/deal_cards.php")
     .then(response => response.json())

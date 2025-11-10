@@ -1,10 +1,11 @@
 <?php
-require_once "db.php";
+require_once "db.php"; //to read the data from the poker-game database
 
 header("Content-type: application/json");
 
 $username = $_POST['username'] ?? '';
 
+//validation block
 if ($username == '') {
   echo json_encode(["status" => "error", "message" => "Username required"]);
   exit;
@@ -31,4 +32,5 @@ if ($result->num_rows > 0) {
   ];
 }
 
+// final response to the frontend
 echo json_encode(["status" => "success", "player" => $player]);
