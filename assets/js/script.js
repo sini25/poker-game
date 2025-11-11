@@ -1,14 +1,25 @@
 document.getElementById("loginBtn").addEventListener("click", () => {
   const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("passwrord").value.trim();
+
   if (!username) {
     alert("Please enter a username");
     return;
   }
- loggedInUser = username;
-
- document.getElementById("loginBtn").addEventListener.style.dsiplay = "none";
- document.getElementById("dealBtn").addEventListener.style.display = "block";
  
+  if (!password) {
+    alert("Please enetr a valid password");
+    return;
+  }
+
+  const loggedInUser = {
+    username: username,
+    password: password
+  };
+
+  document.getElementById("players-info").innerText =
+    `Welcome ${username} | Chips: 1000`;
+
   console.log("Sending username:", username);
 
   fetch("backend/php/login.php", {
@@ -20,8 +31,6 @@ document.getElementById("loginBtn").addEventListener("click", () => {
     .then(data => {
       if (data.status === "success") {
         const players = data.players;
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("game-container").style.display = "block";
         document.getElementById("players-info").innerText =
           `Welcome, ${players.username} | Chips: ${players.chips}`;
       } else {
@@ -41,13 +50,40 @@ document.getElementById("dealBtn").addEventListener("click", () => {
   fetch("backend/php/deal_cards.php")
     .then(response => response.json())
     .then(data => {
-      document.getElementById("players-cards").innerHTML = `
-        <img src="assets/images/cards/${data.card1}.png">
-        <img src="assets/images/cards/${data.card2}.png">
-      `;
+      console.log("Dealt cards:", data);
+
+      const playersDiv = document.getElementById("players_cards");
+      const communityDiv = document.getElementById("community_cards");
+
+      playersDiv.innerHTML = "";
+      communityDiv.innerHTML = "";
+
+      // render player cards
+      Object.entries(data.players_cards).forEach(([player, cards]) => {
+        const cardHTML = cards
+          .map(card => `<img src="assets/images/cards/${card.toLowerCase()}.png" alt="${card}" width="80">`)
+          .join(" ");
+        playersDiv.innerHTML += `
+          <div class="player">
+            <h4>${player}</h4>
+            ${cardHTML}
+          </div>
+        `;
+      });
+
+      // render community cards
+      if (data.community_cards && data.community_cards.length > 0) {
+        const commHTML = data.community_cards
+          .map(card => `<img src="assets/images/cards/${card.toLowerCase()}.png" alt="${card}" width="80">`)
+          .join(" ");
+        communityDiv.innerHTML = `
+          <h4>Community Cards</h4>
+          ${commHTML}
+        `;
+      }
     })
     .catch(error => {
-      document.getElementById("players-cards").innerHTML =
+      document.getElementById("players_cards").innerHTML =
         "Error dealing cards. Check PHP setup.";
       console.error(error);
     });

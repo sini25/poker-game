@@ -18,7 +18,7 @@ body {
     width: 1000px;
     height: 1000px;
     margin: 0 auto;
-    margin-top: -260px; /* the above space controller of this container */
+    margin-top: -460px; /* the above space controller of this container */
     box-shadow: 0 0 30px gold;
     position: fixed;
     left: 400px;
@@ -28,8 +28,8 @@ body {
 .table {
     background-color: #800000;
     border: 5px solid #fff;
-    border-radius: 35px;
-    padding: 100px;
+    border-radius: 250px;
+    padding: 200px;
     width: 60%;
     margin: 50px auto;
     box-shadow: 0 0 20px black;
@@ -74,7 +74,7 @@ body {
 
 }
 
-.card.flip .crad-inner {
+.card.flip .card-inner {
     transform: rotateY(180deg);
 }
 
@@ -103,10 +103,12 @@ button {
     color: black;
     border: white;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
+    margin-top: 20px;
     font-size: 20px;
     transition: 0.3s;
+    box-shadow: 0 0 10px white;
 }
 
 button:hover {
@@ -118,7 +120,7 @@ button:hover {
     color: gold;
     padding: 30px;
     width: 300px;
-    height: 200px;
+    height: 300px;
     margin-top: 20px;
     border: 2px solid gold;
     border-radius: 15px;
@@ -138,5 +140,16 @@ button:hover {
     background: gold;
     border: none;
     cursor: pointer;
+}
+
+#banner {
+    background: #111;
+    color: gold;
+    padding: 30px;
+    width: 300px;
+    height: 200px;
+    margin-top: 30px;
+    border: 2px solid gold;
+    border-radius: 15px;
 }
 

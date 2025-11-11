@@ -12,21 +12,33 @@
     <div id="login-container">
         <h2> Enter your name to start the game </h2>
         <input type="text" id="username" placeholder="Enter username"><br>
+        <input type="text" id="password" placeholder="Password"><br>
         <button id="loginBtn" >Login</button>
+    </div>
+
+     <!--<div id="new-user"></div>--> 
+
+    <div id="banner">
+        <img src="assets/images/banner.jpg"  alt="Poker Banner">
     </div>
 
     <div class="game-container">
         <h1>
-            <img src="assets/images/poker-table.png" style="width:50px; vertical-align:middle;">
+            <img src="assets/images/games.png" style="width:100px; vertical-align:middle;">
             Poker Table Game
         </h1>
-    
+
+        <div id="players-info" class="info-bar"></div>
+
         <div class="table">
-            <div id="players-cards" class="card-container">Your cards will appear here </div>
+            <div id="players_cards" class="card-container">Your cards will appear here </div>
+            <div id="community_cards" class="card-container"></div>
+
             <button id="dealBtn"> Deal Cards </button>
+            
         </div>
-    </div>
-    </div>
+        </div>
+        </div>
     <script src="assets/js/script.js"></script>
 </body>
 
