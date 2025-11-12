@@ -3,7 +3,7 @@ body {
     background-color: green;
     color: white;
     text-align: center;
-    font-family: 'Arial';
+    font-size: 20px;
     margin: "0";
     padding: 50px;
    
@@ -18,7 +18,7 @@ body {
     width: 1000px;
     height: 1000px;
     margin: 0 auto;
-    margin-top: -460px; /* the above space controller of this container */
+    margin-top: -660px; /* the above space controller of this container */
     box-shadow: 0 0 30px gold;
     position: fixed;
     left: 400px;
@@ -57,6 +57,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
+    font-size: 20px;
 }
 
 .card {
@@ -133,13 +134,27 @@ button:hover {
     width: 90%;
 }
 
+#login-container input::placeholder {
+    color: black;
+    letter-spacing: 1px;
+    font-style: normal;
+    
+
+}
+
 #login-container button {
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 10px 20px;
     font-weight: bold;
     background: gold;
     border: none;
     cursor: pointer;
+}
+
+
+
+#loginBtn {
+    margin-right: 10px;
 }
 
 #banner {
