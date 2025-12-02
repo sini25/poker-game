@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(isset($_SESSION["username"])) {
+   // user is logged in
+} else {
+  //show login form
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,20 +15,29 @@
     <title> Poker Table </title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@400;700&display=swap"
         rel="stylesheet">
-     <link rel="stylesheet" href="assets/css/global.css">    
+    <link rel="stylesheet" href="assets/css/global.css">    
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <div class="page-wrapper">
     <div id="login-container">
-        <h2> Enter your name to start the game </h2>
-        <input type="text" id="username" placeholder="Enter username"><br>
-        <input type="text" id="password" placeholder="Password"><br>
-        <button id="loginBtn" >Login</button>
-        <button id="signupBtn">Signup</button>
+    <h2>Enter your name to start the game</h2>
+    <form id="loginForm" method="POST" >
+        <input id="username" type="text" name="username" placeholder="Enter username" required><br>
+        <input id="password" type="password" name="password" placeholder="Password" required><br>
+        <button type="button" id="loginBtn">Login</button>
+    </form>
+    <div>
+    <div id="signup-container">
+        <h2>Please signup to start the game</h2>
+    <form id="signupForm" method="POST" action="backend/php/index.php">
+        <input id="username" type="text" name="username" placeholder="Enter username" required><br>
+        <input id="password" type="password" name="password" placeholder="Password" required><br>
+        <button type="button" id="signupBtn" >Signup</button>
+    </form>
     </div>
-
+</div>
      <!--<div id="new-user"></div>--> 
 
     <div id="banner">
@@ -47,3 +65,4 @@
 </body>
 
 </html>
+

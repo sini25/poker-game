@@ -1,24 +1,27 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 0);
+session_start();
+require_once __DIR__ . "/db.php";
 
-require_once __DIR__ . "/db.php"; 
-header("Content-Type: application/json");
+header('Content-Type: application/json');
 
-$username = $_POST['username'] ?? '';
-$password_hash = $_POST['password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(["status" => "error", "message" => "Invalid request"]);
+    exit;
+}
 
-// Validate inputs
-if (empty($username) || empty($password_hash)) {
+$username = isset($_POST['username']) ? trim($_POST['username']) : '';
+$password = isset($_POST['password']) ? trim($_POST['password']) : '';
+
+if (empty($username) || empty($password)) {
     echo json_encode(["status" => "error", "message" => "Username and password required"]);
     exit;
 }
 
 // Check if username already exists
-$query = $conn->prepare("SELECT * FROM players WHERE username = ? AND password_hash = ? ");
-$query->bind_param("ss", $username , $password_hash);
-$query->execute();
-$result = $query->get_result();
+$stmt = $conn->prepare("SELECT id FROM players WHERE username = ?");
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     echo json_encode(["status" => "error", "message" => "Username already taken"]);
@@ -26,18 +29,16 @@ if ($result->num_rows > 0) {
 }
 
 // Hash the password
-$password_hash = password_hash($password_hash, PASSWORD_DEFAULT);
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-// Insert new player
-$insert = $conn->prepare("INSERT INTO players (username, password_hash, chips) VALUES (?, ?, 1000)");
-$insert->bind_param("ss", $username, $password_hash);
-$insert->execute();
+// Insert new user
+$stmt = $conn->prepare("INSERT INTO players (username, password_hash) VALUES (?, ?)");
+$stmt->bind_param("ss", $username, $password_hash);
 
-echo json_encode([
-    "status" => "success",
-    "players" => [
-        "id" => $insert->insert_id,
-        "username" => $username,
-        "chips" => 1000
-    ]
-]);
+if ($stmt->execute()) {
+    $_SESSION['username'] = $username;
+    $_SESSION['userId'] = $stmt->insert_id;
+    //echo json_encode(["status" => "success", "message" => "Signup successful"]);
+} else {
+    //echo json_encode(["status" => "error", "message" => "Database error: " . $stmt->error]);
+}

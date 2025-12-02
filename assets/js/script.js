@@ -1,40 +1,33 @@
-//==login==
+//login
 document.getElementById("loginBtn").addEventListener("click", () => {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+  const username = document.getElementById("login_username").value.trim();
+  const password = document.getElementById("login_password").value.trim();
 
   if (!username) {
     alert("Please enter a username");
     return;
   }
- 
+
   if (!password) {
     alert("Please enter a valid password");
     return;
   }
 
-  const loggedInUser = {
-    username: username,
-    password: password
-  };
-
-  document.getElementById("players-info").innerText =
-    `Welcome ${username} | Chips: 1000`;
-
   console.log("Sending username:", username);
 
   fetch("backend/php/login.php", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: "username=" + encodeURIComponent(username)
-          + "&password=" + encodeURIComponent(password)
+    body: "username=" + encodeURIComponent(username) +
+          "&password=" + encodeURIComponent(password)
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data);
       if (data.status === "success") {
-        const players = data.players;
         document.getElementById("players-info").innerText =
-          `Welcome, ${players.username} | Chips: ${players.chips}`;
+          `Welcome ${data.players.username} | Chips: ${data.players.chips}`;
       } else {
         alert(data.message);
       }
@@ -42,10 +35,11 @@ document.getElementById("loginBtn").addEventListener("click", () => {
     .catch(error => console.error("Fetch error:", error));
 });
 
-//==signup==
+
+//signup
 document.getElementById("signupBtn").addEventListener("click", () => {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+  const username = document.getElementById("signup_username").value.trim();
+  const password = document.getElementById("signup_password").value.trim();
 
   if (!username || !password) {
     alert("Please enter both username and password");
@@ -54,9 +48,10 @@ document.getElementById("signupBtn").addEventListener("click", () => {
 
   fetch("backend/php/signup.php", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: "username=" + encodeURIComponent(username)
-        + "&password=" + encodeURIComponent(password_hash)
+        + "&password=" + encodeURIComponent(password)
   })
   .then(res => res.json())
   .then(data => {
@@ -72,7 +67,7 @@ document.getElementById("signupBtn").addEventListener("click", () => {
   .catch(err => console.error("Signup error:", err));
 });
 
-//==deal cards==
+//deal cards
 document.getElementById("dealBtn").addEventListener("click", () => {
   const username = document.getElementById("username")?.value.trim();
   if (!username) {
