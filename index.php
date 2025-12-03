@@ -24,16 +24,16 @@ if(isset($_SESSION["username"])) {
     <div id="login-container">
     <h2>Enter your name to start the game</h2>
     <form id="loginForm" method="POST" >
-        <input id="username" type="text" name="username" placeholder="Enter username" required><br>
-        <input id="password" type="password" name="password" placeholder="Password" required><br>
+        <input id="login_username" type="text" name="username" placeholder="Enter username" required><br>
+        <input id="login_password" type="password" name="password" placeholder="Password" required><br>
         <button type="button" id="loginBtn">Login</button>
     </form>
     <div>
     <div id="signup-container">
         <h2>Please signup to start the game</h2>
     <form id="signupForm" method="POST" action="backend/php/index.php">
-        <input id="username" type="text" name="username" placeholder="Enter username" required><br>
-        <input id="password" type="password" name="password" placeholder="Password" required><br>
+        <input id="signup_username" type="text" name="username" placeholder="Enter username" required><br>
+        <input id="signup_password" type="password" name="password" placeholder="Password" required><br>
         <button type="button" id="signupBtn" >Signup</button>
     </form>
     </div>

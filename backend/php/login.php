@@ -2,6 +2,9 @@
 session_start();
 require_once __DIR__ . "/db.php"; // Make sure this path is correct
 
+$db = new Database();       // create the object
+$conn = $db->getConnection();  // now you get your mysqli connection
+
 header('Content-Type: application/json');
 
 //Log Function

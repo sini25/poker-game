@@ -1,19 +1,37 @@
 <?php
 
-$host = "localhost";    // Laragon’s local server
-$user = "root";         // default username
-$pass = "123456";             // default password (empty)
-$dbname = "poker_game"; // name of the database you created
+class Database
+{
+    private $host = "localhost";
+    private $user = "root";
+    private $pass = "123456";
+    private $dbname = "poker_game";
 
-$conn = new mysqli($host, $user, $pass, $dbname); // $conn is the object here class is the mysqli
+    private $conn; 
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+    public function __construct()
+    {
+        //now inside class database
+        $this->conn = new mysqli(
+            $this->host,
+            $this->user,
+            $this->pass,
+            $this->dbname
+        );
 
-/*else {
-    echo "✅ Database connected successfully!"; this thing not alligned with the json file 
+        if ($this->conn->connect_error) {
+            die("Database connection failed: " . $this->conn->connect_error);
+        }
+    }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
 }
-*/ 
 
-?>
+// $this - is the current  object created from the class
+
+//class is the blueprint
+//object is the house built from the blueprint
+//$this = the specific house you're inside right now

@@ -2,7 +2,24 @@
 session_start();
 require_once __DIR__ . "/db.php";
 
+$db = new Database();       // create the object (database is the class and DB is the object)
+$conn = $db->getConnection();  // now you get your mysqli connection
+
 header('Content-Type: application/json');
+
+//Log Function
+function write_log($message) {
+    $logFile = __DIR__ . "/log.txt";
+    $timestamp = date("Y-m-d H:i:s");
+    file_put_contents($logFile, "[$timestamp] $message\n", FILE_APPEND);
+}
+
+//handle get (cURL testing)
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    write_log("GET request received");
+    echo json_encode(["status" => "error", "message" => "GET OK"]);
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["status" => "error", "message" => "Invalid request"]);
@@ -37,8 +54,11 @@ $stmt->bind_param("ss", $username, $password_hash);
 
 if ($stmt->execute()) {
     $_SESSION['username'] = $username;
-    $_SESSION['userId'] = $stmt->insert_id;
+    $_SESSION['userId'] = $conn->insert_id;
     //echo json_encode(["status" => "success", "message" => "Signup successful"]);
-} else {
+    write_log("Signup success for user: " . $username);
+}
+ else {
     //echo json_encode(["status" => "error", "message" => "Database error: " . $stmt->error]);
 }
+
