@@ -1,10 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION["username"])) {
-   // user is logged in
+
+if (isset($_SESSION["username"])) {
+    echo "Logged in: " . $_SESSION["username"];
 } else {
-  //show login form
+    echo "Not logged in. Please log in.";
 }
+
+//random way to create a cookie
+//setcookie("userPref", "darkMode", time() + 3600, "/", "", false, true);
 ?>
 
 <!DOCTYPE html>
@@ -65,4 +69,3 @@ if(isset($_SESSION["username"])) {
 </body>
 
 </html>
-
