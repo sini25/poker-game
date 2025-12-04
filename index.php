@@ -2,13 +2,14 @@
 session_start();
 
 if (isset($_SESSION["username"])) {
-    echo "Logged in: " . $_SESSION["username"];
+    //echo "Logged in: " . $_SESSION["username"];
 } else {
-    echo "Not logged in. Please log in.";
+    //echo "Not logged in. Please log in.";
 }
 
 //random way to create a cookie
 //setcookie("userPref", "darkMode", time() + 3600, "/", "", false, true);
+
 ?>
 
 <!DOCTYPE html>
