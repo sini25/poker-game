@@ -7,9 +7,12 @@ $conn = $db->getConnection();  // now you get your mysqli connection
 
 header('Content-Type: application/json');
 
+//date_default_timezone_set('Asia/Kuala_Lumpur'): 
+
 //Log Function
 function write_log($message) {
     $logFile = __DIR__ . "/log.txt";
+   
     $timestamp = date("Y-m-d H:i:s");
     file_put_contents($logFile, "[$timestamp] $message\n", FILE_APPEND);
 }
@@ -60,6 +63,8 @@ if ($result->num_rows === 1) {
     // Verify password
     if (password_verify($password, $user['password_hash'])) {
         // Successful login
+        session_regenerate_id(true); // regenerate session id
+
         $_SESSION['username'] = $user['username'];
         $_SESSION['userId'] = $user['id'];
         //echo json_encode(["status" => "success", "message" => "Login successful"]);
@@ -75,19 +80,3 @@ if ($result->num_rows === 1) {
 
 write_log("Login successful for $username");
 
-/*
-$color = "black";
-switch ($color) {
-    case "black":
-        echo "Your favorite color is black";
-        break;
-    case "blue":
-        echo "Your favorite color is blue";
-        break;
-    case "green":
-        echo "Your favorite color is green";
-        break;
-    default:
-    echo "Your favorite color is neither red, blue and nor green!";
-}
-*/
