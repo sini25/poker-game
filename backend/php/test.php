@@ -223,7 +223,7 @@ echo "Total passes" . $counter_pass++;
 echo "Total passes" . $counter_fail++;
 
 */
-
+/*
 $users = ["Ali"=>false, "Bala"=>true, "Cindy"=>false]; // true = logged in
 $counter= 0;
 $max_attempts = 3;
@@ -249,4 +249,303 @@ foreach ($users as $name => $is_logged_in) {
 }
 
 echo "Total number of users logged in . $counter";
+*/
+
+/*
+$i = 1;
+$j = 2;
+
+while($i <10){
+   echo "$i";
+   switch( $i * $j) {
+      case 10: //reading the value of the $i * $j
+         echo " * $j = 10";
+         break 2; // break 2 means break out of two levels of loops
+         // level 1 is hwile loop and level 2 is switch 
+      //case 16: //reading the value of the $i * $j
+         //echo " * $j = 10";
+         //break 2;   
+   }
+   echo " <br>";
+   $i++;
+}
+
+*/
+ 
+$balance = 120; 
+$bet_amount = 30;
+$bonus_type = "Welcome";
+$attempts = 0;
+$bonus_value = 0;
+
+if ($bet_amount >= $balance) {
+
+   while ($attempts < 3) {
+      echo "Top up required (Attempt " . ($attempts + 1) .  "<br>";
+      $attempts++;
+   
+      echo "All retries used. Bet cannot be placed.<br>";
+      exit;
+      }
+   }
+
+//Otheriwse Bet is accepted
+else {
+   echo "Bet accepted!<br>";
+
+   //simulate 5 rounds
+   switch(strtoupper($bonus_type)){
+      case "WELCOME":
+         $bonus_value = 10;
+         break;
+      case "DAILY":
+          $bonus_value = 5;
+         break;
+      case "NONE":
+      default :
+       $bonus_value = 0;
+         break;
+   }
+    
+}
+
+//simulate the 5 rounds of the bet
+for ($round = 1; $round <=5; $round++){
+   echo "Round $round: Bet placed<br>";
+}
+
+ echo "Bonus applied: $bonus_type (+ " . $bonus_value . ")<br><br>";
+
+ echo "Updating balance:<br>";
+
+
+ $balance_after = $balance - $bet_amount + $bonus_value;
+
+ echo "New Balance: " . $balance_after . "<br>";
+?>
+<br>
+<?php
+
+$wallet = 80;
+$bet = 20;
+$free_spin = true; 
+$max_rounds = 5;
+$tries = 0;
+
+
+if ($bet > $wallet){
+   
+   //user gets 3 tries
+   while($tries < 3){
+      echo "Top up required! Attempt no :" . ($tries + 1) . "<br>";
+      $tries++;
+      switch($tries){
+         case 3:
+            echo "Bet too high, top up required!!<br>";
+         break 2;
+         exit;
+
+      }
+
+   }
+
+}
+//otherwise the bet is accepted
+else {
+   echo "Bet accepted<br>";
+}
+  
+$round = 1;
+
+for ($round = 1 ; $round <= 5; $round++){
+   echo  "Round $round " . ": Bet placed<br>";
+    switch($round){
+      case 1: 
+         if($free_spin){
+         echo "Free spin activated!<br>";}
+         break;
+      case 3:
+         echo "Big win chance<br>";
+         break;
+      default :
+       echo "Normal Round<br>";
+         break;
+         exit;
+    }
+       
+   }  
+echo "Game finished<br>";
+?>
+<br>
+<?php
+
+
+$numbers = array(4, 6, 2, 22, 11);
+asort($numbers);
+
+$arrlength = count($numbers);
+for ($x = 0; $x < $arrlength; $x++) {
+   echo $numbers[$x];
+   echo "<br>";
+}
+/*
+$players = [
+   ["name" => "Ali", "score" => 80],
+   ["name" => "Bala", "score" => 55],
+   ["name" => "Cindy", "score" => 92],
+   ["name" => "Divya", "score" => 60]
+];
+
+usort($players['score']);
+
+echo "$players['score']";
+*/
+?>
+
+<?php
+
+$input_json = '[
+  {"user":"Divya","betType":"exact","number":7,"amount": -1,"tags":"vip,new"},
+  {"user":"Ali","betType":"big","number":0,"amount":30,"tags":"bonus"},
+  {"user":"Cindy","betType":"small","number":0,"amount":10,"tags":""}
+]';
+
+
+$bets = json_decode($input_json, true);
+
+//====Function: Validate username======
+
+function validateUsername($name) {
+   if (strlen($name) < 3) return false;
+   if (mb_strpos($name, "bad") !== false) return false; //
+   return true;
+}
+
+
+//====Game Logic Start====
+
+$results = [];
+
+foreach ($bets as $bet) {
+
+    $user   = $bet["user"];
+    $type   = $bet["betType"];
+    $number = $bet["number"];
+    $amount = $bet["amount"];
+    $tags   = $bet["tags"];
+
+    
+    //====Username validation====
+    if (!validateUsername($user)) {
+        $results[] = [
+            "user" => $user,
+            "error" => "Invalid username"
+        ];
+        continue;
+    }
+
+ 
+    //====Check bet amount using WHILE====
+    $tries = 0;
+    while ($amount <= 0 && $tries < 3) {
+        $tries++;
+        $amount++; // fake correction just to exit loop
+    }
+
+    if ($amount <= 0) {
+        $results[] = [
+            "user" => $user,
+            "error" => "Invalid bet amount"
+        ];
+        continue;
+    }
+
+    
+    //====Exact bet must have valid number====
+    if ($type == "exact") {
+        if (!($number >= 1 && $number <= 10)) {
+            $results[] = [
+                "user" => $user,
+                "error" => "Number must be 1–10 for exact bet"
+            ];
+            continue;
+        }
+    }
+
+   
+    //====Convert tags: explode + implode====
+    $tagArray = explode(",", $tags);
+    $cleanTags = implode("-", $tagArray);
+
+
+    
+    //====GAME ROUND – Random outcome====
+    $roll = rand(1, 10);
+    $win = 0;
+
+   
+    //====SWITCH logic for bet type====
+    switch ($type) {
+
+        case "exact":
+            if ($roll == $number) {
+                $win = $amount * 10;
+            }
+            break;
+
+        case "small":
+            if ($roll >= 1 && $roll <= 5) {
+                $win = $amount * 2;
+            }
+            break;
+
+        case "big":
+            if ($roll >= 6 && $roll <= 10) {
+                $win = $amount * 2;
+            }
+            break;
+
+        default:
+            $results[] = ["user" => $user, "error" => "Invalid bet type"];
+            continue;
+    }
+
+    
+    //====Save result with timestamp====
+    $results[] = [
+        "user" => $user,
+        "betType" => $type,
+        "amount" => $amount,
+        "roll" => $roll,
+        "win" => $win,
+        "tags" => $cleanTags,
+        "time" => date("Y-m-d H:i:s")
+    ];
+}
+
+
+
+// SORT RESULTS by winnings DES
+usort($results, function($a, $b) {
+    return ($b["win"] ?? 0) <=> ($a["win"] ?? 0);
+});
+
+
+
+// PREPARE FINAL RESPONSE
+$json_output = json_encode($results);
+$base64 = base64_encode($json_output);
+$hash = md5($base64);
+
+
+// FINAL OUTPUT
+echo "<pre>";
+print_r([
+    "players" => $results,
+    "encoded" => $base64,
+    "hash" => $hash
+]);
+echo "</pre>";
+
+
 ?>
