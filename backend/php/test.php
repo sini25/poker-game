@@ -405,7 +405,7 @@ echo "$players['score']";
 <?php
 
 $input_json = '[
-  {"user":"Divya","betType":"exact","number":7,"amount": -1,"tags":"vip,new"},
+  {"user":"Divya","betType":"exact","number":7,"amount": 10,"tags":"vip,new"},
   {"user":"Ali","betType":"big","number":0,"amount":30,"tags":"bonus"},
   {"user":"Cindy","betType":"small","number":0,"amount":10,"tags":""}
 ]';
@@ -457,7 +457,7 @@ foreach ($bets as $bet) {
             "user" => $user,
             "error" => "Invalid bet amount"
         ];
-        continue;
+        continue ;
     }
 
     
@@ -468,7 +468,7 @@ foreach ($bets as $bet) {
                 "user" => $user,
                 "error" => "Number must be 1–10 for exact bet"
             ];
-            continue;
+            continue ;
         }
     }
 
@@ -507,7 +507,7 @@ foreach ($bets as $bet) {
 
         default:
             $results[] = ["user" => $user, "error" => "Invalid bet type"];
-            continue;
+            continue 2 ;
     }
 
     

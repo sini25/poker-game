@@ -80,3 +80,19 @@ if ($result->num_rows === 1) {
 
 write_log("Login successful for $username");
 
+/*
+$color = "black";
+switch ($color) {
+    case "black":
+        echo "Your favorite color is black";
+        break;
+    case "blue":
+        echo "Your favorite color is blue";
+        break;
+    case "green":
+        echo "Your favorite color is green";
+        break;
+    default:
+    echo "Your favorite color is neither red, blue and nor green!";
+}
+*/
