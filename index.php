@@ -2,6 +2,9 @@
 
 session_start(); //creating new session
 
+$nowpage = $_SERVER['REQUEST_URI'];
+echo $nowpage;
+
 if (isset($_SESSION["username"])) {
     echo "Logged in: " . $_SESSION["username"];
 } else {

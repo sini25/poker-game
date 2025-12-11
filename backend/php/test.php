@@ -1,5 +1,42 @@
 <?php 
  
+$host = $_SERVER['HTTP_HOST'];
+$nowpage = $_SERVER['REQUEST_URI'];
+
+//usualy set by proxies/VPNs. not always reliable
+$nowpage = $_SERVER['HTTP_CLIENT_IP'] = "203.12.55.44"; 
+
+//shows the original client ip when behind proxies/Cloudflare/load balancer
+$nowpage = $_SERVER['HTTP_X_FORWARDED_FOR'] = "203.12.55.44, 172.20.10.10, 10.0.0.1";
+
+//IP address that  you server sees(usually proxy IP if behind cloudflare)
+$nowpage = $_SERVER['REMOTE_ADDR'] = "172.20.10.10";
+
+//what protocol the client used to comminicate
+$nowpage = $_SERVER['SERVER_PROTOCOL'] = "HTTP/2.0";
+
+//Browser's Language preferences
+$nowpage = $_SERVER['HTTP_ACCEPT_LANGUAGE'] = "en-Uk,en;q=0.9,ms,q=0.8";
+
+
+$_SERVER = [
+    "HTTP_CLIENT_IP"          => "203.12.55.44",
+    "HTTP_X_FORWARDED_FOR"    => "203.12.55.44, 172.20.10.10",
+    "REMOTE_ADDR"             => "172.20.10.10",
+    "SERVER_PROTOCOL"         => "HTTP/1.1",
+    "HTTP_ACCEPT_LANGUAGE"    => "en-US,en;q=0.9,ms;q=0.8"
+];
+
+
+echo "<pre>";
+print_r($_SERVER);
+echo "</prev>";
+
+//echo $host;
+echo $nowpage . "<br>";
+
+echo $_GET['aaa'];
+
 $username = "divya";
 $password = "1234";
 $is_banned = false;
